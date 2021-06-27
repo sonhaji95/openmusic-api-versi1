@@ -1,10 +1,13 @@
 //impor dotenv dan configurasi
-//require('dotenv').config();
+require('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
 const songs = require('./api/songs');
+const SongsValidator = require('./validator/songs');
+const SongsService = require('./services/postgres/SongsService');
 
 const init = async () => {
+    const songsService = new SongsService();
     const server = Hapi.server({
         port: process.env.PORT,
         host: process.env.HOST,
@@ -18,7 +21,7 @@ const init = async () => {
     await server.register({
         plugin: songs,
         options: {
-            service: songsServices,
+            service: songsService,
             validator: SongsValidator,
         },
     });
