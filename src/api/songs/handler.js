@@ -9,13 +9,13 @@ class SongsHandler {
         this.getSongsHandler = this.getSongsHandler.bind(this);
         this.getSongByIdHandler = this.getSongByIdHandler.bind(this);
         this.putSongByIdHandler = this.putSongByIdHandler.bind(this);
-        this.deleteSongByIdHandler = this.deleteSongByIdHandler(this);
+        this.deleteSongByIdHandler = this.deleteSongByIdHandler.bind(this);
     }
 
     //handler Create
     async postSongHandler(request, h) {
         try {
-            this._validator.validatorSongPayload(request.payload);
+            this._validator.validateSongPayload(request.payload);
             const { title = 'untitled', year, performer, genre, duration } =  request.payload;
             const songId = await this._service.addSong({ title, year, performer, genre, duration });
 
@@ -60,7 +60,7 @@ class SongsHandler {
     }
 
     //handler Read song Id
-    async getSongByIdHandler() {
+    async getSongByIdHandler(request, h) {
         try {
             const { id } = request.params;
             const song = await this._service.getSongById(id);
@@ -93,7 +93,7 @@ class SongsHandler {
     // Handler Update song id
     async putSongByIdHandler(request, h) {
         try {
-            this>this._validator.validateSongPayload(request.payload);
+            this._validator.validateSongPayload(request.payload);
             const { id } = request.params;
             await this._service.editSongById(id, request.payload);
             return {
@@ -133,15 +133,16 @@ class SongsHandler {
             if (error instanceof ClientError) {
                 const response = h.response({
                     status: 'fail',
-                    message: 'Lagu gagal dihapus. Id tidak ditemukan',
+                    message: error.message,
                 });
-                response.code(code.statusCode);
+                response.code(error.statusCode);
                 return response;
             }
+
             //server error
             const response = h.response({
                 status: 'error',
-                message: 'Maaf, terjadi kegagalan pada server kami',
+                message: 'Maaf, terjadi kegagalan pada server kami.',
             });
             response.code(500);
             console.error(error);
