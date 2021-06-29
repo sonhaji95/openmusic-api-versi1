@@ -65,7 +65,7 @@ class SongsHandler {
             const { id } = request.params;
             const song = await this._service.getSongById(id);
             return {
-                statu: 'success',
+                status: 'success',
                 data: {
                     song,
                 },
@@ -126,7 +126,7 @@ class SongsHandler {
             const { id } = request.params;
             await this._service.deleteSongById(id);
             return {
-                statu: 'success',
+                status: 'success',
                 message: 'Lagu berhasil dihapus',
             };
         } catch (error) {

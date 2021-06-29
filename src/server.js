@@ -9,6 +9,7 @@ const SongsService = require('./services/postgres/SongsService');
 
 const init = async () => {
     const songsService = new SongsService();
+    
     const server = Hapi.server({
         port: process.env.PORT,
         host: process.env.HOST,
@@ -23,7 +24,7 @@ const init = async () => {
         plugin: songs,
         options: {
             service: songsService,
-            validator: SongsValidator
+            validator: SongsValidator,
         },
     });
 
