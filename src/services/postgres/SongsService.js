@@ -6,8 +6,8 @@ const { mapDBToModel } = require('../../utils');
 
 class SongsService {
     constructor() {
-        this._pool = new Pool;
-    }
+        this._pool = new Pool();
+    };
 
     //addSong
     async addSong({ title, year, performer, genre, duration}) {
@@ -26,7 +26,7 @@ class SongsService {
         }
         return result.rows[0].id;
     }
-
+    
     //get Songs
     async getSongs(){
         const result = await this._pool.query('SELECT id, title, performer FROM songs');
@@ -73,5 +73,6 @@ class SongsService {
         }
     }
 }
+
 
 module.exports = SongsService;

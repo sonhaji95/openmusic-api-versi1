@@ -11,7 +11,7 @@ exports.up = pgm => {
             notNull: true,
         },
         year: {
-            type: 'INT',
+            type: 'INTEGER',
             notNull: true,
         },
         performer: {
@@ -23,7 +23,7 @@ exports.up = pgm => {
             notNull: true,
         },
         duration: {
-            type: 'INT',
+            type: 'INTEGER',
             notNull: true,
         },
         inserted_at: {
@@ -33,10 +33,10 @@ exports.up = pgm => {
         updated_at: {
             type: 'TEXT',
             notNull: true,
-        }
+        },
     });
 };
 
-exports.down = pgm => {
+exports.down = (pgm) => {
     pgm.dropTable('songs');
 };
