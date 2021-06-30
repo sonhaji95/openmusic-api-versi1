@@ -6,12 +6,12 @@
   "scripts": {
     "start-prod": "NODE_ENV=production node ./src/server.js",
     "start-dev": "nodemon ./src/server.js",
-    "lint": "eslint ./",
+    "lint": "eslint ./src",
     "migrate": "node-pg-migrate"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "sonhaji",
+  "license": "ISC", 
   "devDependencies": {
     "eslint": "^7.29.0",
     "eslint-config-airbnb-base": "^14.2.1",
