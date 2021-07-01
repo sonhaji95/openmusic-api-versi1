@@ -11,7 +11,7 @@ class SongsHandler {
         this.putSongByIdHandler = this.putSongByIdHandler.bind(this);
         this.deleteSongByIdHandler = this.deleteSongByIdHandler.bind(this);
     }
-s
+    
     //handler Create
     async postSongHandler(request, h) {
         try {
