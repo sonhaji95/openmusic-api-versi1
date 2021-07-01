@@ -49,14 +49,35 @@ s
     }
 
     //handler Read all songs
-    async getSongsHandler() {
-        const songs = await this._service.getSongs();
-        return {
-            status: 'success',
-            data: {
-                songs,
-            },
-        };
+    async getSongsHandler(h) {
+        try {
+            /*Hati-hati sebenarnya this._service.getSongs bisa membangkitkan error bila terjadi dgn database
+            Untuk itu, sebaiknya terapkan juga error handling seperti pada request handler lainnya */
+            const songs = await this._service.getSongs();
+            return {
+                status: 'success',
+                data: {
+                    songs,
+                },
+            };
+        } catch (error) {
+            if (error instanceof ClientError) {
+                const response = h.response({
+                    status: 'fail',
+                    message: error.message,
+                });
+                response.code(error.statusCode);
+                return response;
+            };
+            //Server error
+            const response = h.response({
+                status: 'error',
+                message: 'Maaf, terjadi kegagalan pada server kami.',
+            });
+            response.code(500);
+            console.error(error);
+            return response;
+        }
     }
 
     //handler Read song Id
