@@ -3,7 +3,7 @@
         "commonjs": true,
         "es2021": true,
         "node": true,
-        "eol-last": true
+        "eol-last": false
     },
     "extends": [
         "airbnb-base"
@@ -14,6 +14,5 @@
     "rules": {
         "linebreak-style": "off",
         "no-console":"off"
-
     }
 }
